@@ -1,0 +1,17 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/turnown_db
+    username: root
+    password: 100299
+
+jwt:
+  key: qazwsxedc123rfvtgbyhn456ujmikol789p0
+  time: 86400000

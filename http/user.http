@@ -1,0 +1,12 @@
+### 회원가입
+POST http://localhost:8080/signup
+Content-Type: application/json
+Accept: */*
+
+{
+  "userId": "user01",
+  "userPass": "pass01",
+  "userName": "유저1",
+  "userEmail": "user01@pde.com",
+  "role": "ALL"
+}
