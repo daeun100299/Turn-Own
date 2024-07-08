@@ -53,7 +53,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                     DetailsUser authentication = new DetailsUser();
                     User user = new User();
                     user.setUserName(claims.get("userName").toString());
-                    user.setRole(UserRole.valueOf(claims.get("Role").toString()));
+                    user.setUserRole(UserRole.valueOf(claims.get("Role").toString()));
                     authentication.setUser(user);
 
                     AbstractAuthenticationToken authenticationToken

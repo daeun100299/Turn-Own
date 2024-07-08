@@ -24,7 +24,7 @@ public class CustomAuthSuccessHandler extends SavedRequestAwareAuthenticationSuc
         HashMap<String, Object> responseMap = new HashMap<>();
 
         JSONObject jsonObject;
-        if(user.getState().equals("N")) {
+        if(user.getUserState() == 'N') {
             responseMap.put("userInfo", jsonValue);
             responseMap.put("message", "휴면 상태의 계정입니다.");
         } else {

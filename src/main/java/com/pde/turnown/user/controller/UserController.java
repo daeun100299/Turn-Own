@@ -21,7 +21,8 @@ public class UserController {
     @PostMapping("/signup")
     public String signup(@RequestBody User user) {
         user.setUserPass(passwordEncoder.encode(user.getUserPass()));
-        user.setState("Y");
+        user.setUserState('Y');
+
         User value = userRepository.save(user);
 
         if (Objects.isNull(value)) {

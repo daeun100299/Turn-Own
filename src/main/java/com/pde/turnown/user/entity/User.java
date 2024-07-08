@@ -3,8 +3,7 @@ package com.pde.turnown.user.entity;
 import com.pde.turnown.common.UserRole;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,16 +33,29 @@ public class User {
 
     @Column(name = "USER_ROLE")
     @Enumerated(value = EnumType.STRING)
-    private UserRole role;
+    private UserRole userRole;
 
     @Column(name = "USER_STATE")
-    private String state;
+    private char userState;
 
     public List<String> getRoleList(){
-        if(this.role.getRole().length() > 0){
-            return Arrays.asList(this.role.getRole().split(","));
+        if(this.userRole.getRole().length() > 0){
+            return Arrays.asList(this.userRole.getRole().split(","));
         }
         return new ArrayList<>();
+    }
+
+    public User() {
+    }
+
+    @Builder
+    public User(String userId, String userPass, String userName, String userEmail, UserRole userRole, char userState) {
+        this.userId = userId;
+        this.userPass = userPass;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userRole = userRole;
+        this.userState = userState;
     }
 
     @Override
@@ -54,8 +66,8 @@ public class User {
                 ", userPass='" + userPass + '\'' +
                 ", userName='" + userName + '\'' +
                 ", userEmail='" + userEmail + '\'' +
-                ", role=" + role +
-                ", state='" + state + '\'' +
+                ", userRole=" + userRole +
+                ", userState='" + userState + '\'' +
                 '}';
     }
 }
