@@ -29,8 +29,8 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
-    public Optional<User> findUser(String id){
-        Optional<User> user = userRepository.findByUserId(id);
+    public Optional<User> loginUser(String userId){
+        Optional<User> user = userRepository.findByUserId(userId);
 
         /* 별도의 검증 로직 작성 */
 

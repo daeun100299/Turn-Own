@@ -19,14 +19,17 @@ public class DetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (username == null || username.equals("")) {
-            throw new AuthenticationServiceException(username + " is Empty!");
+    public UserDetails loadUserByUsernameAndPassword(String userId, String userPass) throws UsernameNotFoundException {
+        System.out.println("🎨🎨🎨🎨🎨");
+        System.out.println(userId);
+        System.out.println(userPass);
 
+        if (userId == null || userId.equals("")) {
+            throw new AuthenticationServiceException(userId + " 는 존재하지 않습니다.");
         } else {
-            return userService.findUser(username)
+            return userService.loginUser(userId)
                     .map(data -> new DetailsUser(Optional.of(data)))
-                    .orElseThrow(() -> new AuthenticationServiceException(username));
+                    .orElseThrow(() -> new AuthenticationServiceException(userId));
         }
     }
 }

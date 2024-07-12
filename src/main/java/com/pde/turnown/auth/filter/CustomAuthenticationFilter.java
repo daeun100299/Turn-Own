@@ -39,6 +39,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         objectMapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
         LoginDTO user = objectMapper.readValue(request.getInputStream(), LoginDTO.class);
 
-        return new UsernamePasswordAuthenticationToken(user.getId(), user.getPass());
+        return new UsernamePasswordAuthenticationToken(user.getUserId(), user.getUserPass());
     }
 }
