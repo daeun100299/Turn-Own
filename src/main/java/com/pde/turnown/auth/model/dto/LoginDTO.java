@@ -1,30 +1,18 @@
 package com.pde.turnown.auth.model.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class LoginDTO {
-    private String id;
-    private String pass;
+    private String userId;
+    private String userPass;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
-    @Override
-    public String toString() {
-        return "LoginDto{" +
-                "id='" + id + '\'' +
-                ", password='" + pass + '\'' +
-                '}';
+    public LoginDTO(String userId, String userPass) {
+        this.userId = userId;
+        this.userPass = userPass;
     }
 }
