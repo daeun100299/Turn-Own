@@ -1,6 +1,6 @@
 package com.pde.turnown.auth.model;
 
-import com.pde.turnown.user.entity.User;
+import com.pde.turnown.member.dto.MemberDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,39 +8,40 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
-public class DetailsUser implements UserDetails {
-    private User user;
+public class DetailsMember implements UserDetails {
+    private MemberDTO memberDTO;
 
-    public DetailsUser() {
+    public DetailsMember() {
     }
 
-    public DetailsUser(Optional<User> user) {
-        this.user = user.get();
+    public DetailsMember(Optional<MemberDTO> memberDTO) {
+        this.memberDTO = memberDTO.get();
     }
 
-    public User getUser() {
-        return user;
+    public MemberDTO getMember() {
+        return memberDTO;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setMember(MemberDTO memberDTO) {
+        this.memberDTO = memberDTO;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        user.getRoleList().forEach(role -> authorities.add(() -> role));
+//        memberDTO.getPosition().getRoleList().forEach(role -> authorities.add(() -> role));
+
         return authorities;
     }
 
     @Override
     public String getPassword() {
-        return user.getUserPass();
+        return memberDTO.getMemberPW();
     }
 
     @Override
     public String getUsername() {
-        return user.getUserId();
+        return memberDTO.getMemberID();
     }
 
     @Override

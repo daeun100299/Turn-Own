@@ -8,11 +8,14 @@ import lombok.ToString;
 @Setter
 @ToString
 public class LoginDTO {
-    private String userId;
-    private String userPass;
+    private String memberID;
+    private String memberPW;
 
-    public LoginDTO(String userId, String userPass) {
-        this.userId = userId;
-        this.userPass = userPass;
+    public LoginDTO() {
+    }
+
+    public LoginDTO(String memberID, String memberPW) {
+        this.memberID = memberID;
+        this.memberPW = memberPW;
     }
 }
