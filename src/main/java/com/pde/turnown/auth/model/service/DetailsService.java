@@ -1,7 +1,7 @@
 package com.pde.turnown.auth.model.service;
 
-import com.pde.turnown.auth.model.DetailsUser;
-import com.pde.turnown.user.service.UserService;
+import com.pde.turnown.member.service.MemberService;
+import com.pde.turnown.auth.model.DetailsMember;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,21 +12,22 @@ import java.util.Optional;
 
 @Service
 public class DetailsService implements UserDetailsService {
-    private final UserService userService;
+    private final MemberService memberService;
 
-    public DetailsService(UserService userService) {
-        this.userService = userService;
+    public DetailsService(MemberService memberService) {
+        this.memberService = memberService;
     }
 
+    /** 로그인 요청 시 사용자의 id를 받아 DB에서 사용자 정보를 가져오는 메소드 */
     @Override
-    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        // 아이디 확인
-        if (userId == null || userId.equals("")) {
-            throw new AuthenticationServiceException("아이디가 존재하지 않습니다.");
+    public UserDetails loadUserByUsername(String memberID) throws UsernameNotFoundException {
+        if (memberID == null || memberID.equals("")) {
+            throw new AuthenticationServiceException(memberID + " is Empty!");
+
         } else {
-            return userService.loginUser(userId)
-                    .map(data -> new DetailsUser(Optional.of(data)))
-                    .orElseThrow(() -> new AuthenticationServiceException(userId));
+            return memberService.findMember(memberID)
+                            .map(data -> new DetailsMember(Optional.of(data)))  //널이아닌값을 가지는 객체를 반환한다. 그 정보로 DetailsUser 만들자
+                            .orElseThrow(() -> new AuthenticationServiceException(memberID)); // 그과정에서 에러 발생하면 저 예외 던지고 메세지는 username으로 설정
         }
     }
 }

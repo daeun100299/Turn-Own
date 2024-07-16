@@ -1,11 +1,11 @@
 package com.pde.turnown.common;
 
-public enum UserRole {
-    USER("USER"), ADMIN("ADMIN"), ALL("USER,ADMIN");
+public enum Authority {
+    LV1("LV1"), LV2("LV2"), LV3("LV3"), ADMIN("ADMIN");
 
     private String role;
 
-    UserRole(String role) {
+    Authority(String role){
         this.role = role;
     }
 

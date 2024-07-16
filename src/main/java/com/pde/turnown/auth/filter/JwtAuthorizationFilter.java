@@ -1,10 +1,11 @@
 package com.pde.turnown.auth.filter;
 
-import com.pde.turnown.auth.model.DetailsUser;
+import com.pde.turnown.auth.model.DetailsMember;
 import com.pde.turnown.common.AuthConstants;
-import com.pde.turnown.common.UserRole;
-import com.pde.turnown.common.utils.TokenUtils;
-import com.pde.turnown.user.entity.User;
+import com.pde.turnown.common.Authority;
+import com.pde.turnown.member.dto.MemberDTO;
+import com.pde.turnown.util.TokenUtils;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
@@ -34,10 +35,14 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        List<String> roleLessList = Arrays.asList("/signup");
+        List<String> roleLessList = Arrays.asList("/signup","/signupPosition","/signupDep");
 
-        if (roleLessList.contains((request.getRequestURI()))) {
+        if (roleLessList.contains(request.getRequestURI()) ||
+                request.getRequestURI().contains("verifyEmail") ||
+                request.getRequestURI().contains("email")  ||
+                request.getRequestURI().contains("PW")) {
             chain.doFilter(request, response);
+
             return;
         }
 
@@ -49,18 +54,31 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
                 if (TokenUtils.isValidToken(token)) {
                     Claims claims = TokenUtils.getClaimsFromToken(token);
+                    DetailsMember authentication = new DetailsMember();
+                    Authority authority = Authority.valueOf(claims.get("role").toString());
 
-                    DetailsUser authentication = new DetailsUser();
-                    User user = new User();
-                    user.setUserName(claims.get("userName").toString());
-                    user.setUserRole(UserRole.valueOf(claims.get("Role").toString()));
-                    authentication.setUser(user);
+                    MemberDTO tMember = new MemberDTO();
+//                    PositionDTO tPosition = new PositionDTO();
+//                    tPosition.setAuthority(authority);
+//
+//                    tMember.setPosition(tPosition);
+//
+//                    tMember.setMemberNo(claims.get("memberNo").toString());
+//                    //토큰에 사원설정시 부서번호 추가
+//
+//                    tPosition.setPositionNo( Integer.parseInt( ( claims.get("positionNo").toString() ) ) );
+//                  tPosition.setPositionName(claims.get("positionName").toString());
 
+
+                    // Role을 설정합니다.
+                    authentication.setMember(tMember);
+
+                    // 나머지 코드는 동일합니다.
                     AbstractAuthenticationToken authenticationToken
                             = UsernamePasswordAuthenticationToken
                             .authenticated(authentication, token, authentication.getAuthorities());
-                    authenticationToken.setDetails(new WebAuthenticationDetails(request));
 
+                    authenticationToken.setDetails(new WebAuthenticationDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                     chain.doFilter(request, response);
                 } else {
@@ -79,6 +97,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         }
     }
 
+    /** 토큰 관련 Exception 발생 시 예외 내용을 담은 객체 반환하는 메소드 */
     private JSONObject jsonResponseWrapper(Exception e) {
         String resultMsg = "";
 
