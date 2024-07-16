@@ -19,13 +19,10 @@ public class DetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsernameAndPassword(String userId, String userPass) throws UsernameNotFoundException {
-        System.out.println("🎨🎨🎨🎨🎨");
-        System.out.println(userId);
-        System.out.println(userPass);
-
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        // 아이디 확인
         if (userId == null || userId.equals("")) {
-            throw new AuthenticationServiceException(userId + " 는 존재하지 않습니다.");
+            throw new AuthenticationServiceException("아이디가 존재하지 않습니다.");
         } else {
             return userService.loginUser(userId)
                     .map(data -> new DetailsUser(Optional.of(data)))

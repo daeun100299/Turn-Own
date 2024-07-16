@@ -4,9 +4,19 @@ Content-Type: application/json
 Accept: */*
 
 {
-  "userId": "user01",
-  "userPass": "pass01",
-  "userName": "유저1",
-  "userEmail": "user01@pde.com",
-  "role": "ALL"
+  "userId": "user04",
+  "userPass": "pass04",
+  "userName": "유저4",
+  "userEmail": "user04@pde.com",
+  "userRole": "ALL"
+}
+
+### 로그인
+POST http://localhost:8080/login
+Content-Type: application/json
+Accept: */*
+
+{
+  "userId": "user04",
+  "userPass": "pass04"
 }
