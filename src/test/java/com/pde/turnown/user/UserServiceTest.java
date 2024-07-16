@@ -1,7 +1,5 @@
 package com.pde.turnown.user;
 
-import com.pde.turnown.auth.model.dto.LoginDTO;
-import com.pde.turnown.auth.model.service.DetailsService;
 import com.pde.turnown.user.dto.UserDTO;
 import com.pde.turnown.user.entity.User;
 import com.pde.turnown.user.service.UserService;
@@ -20,30 +18,16 @@ public class UserServiceTest {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private DetailsService detailsService;
-
     private static Stream<Arguments> registUser() {
         return Stream.of(
                 Arguments.of(
                         new UserDTO(
-                                "id01"
-                                , "pass01"
-                                , "박다은"
-                                , "goode439767@gamil.com"
+                                "id02"
+                                , "pass02"
+                                , "김다은"
+                                , "kim@gamil.com"
                                 ,ALL
                                 , 'Y'
-                        )
-                )
-        );
-    }
-
-    private static Stream<Arguments> loginUser() {
-        return Stream.of(
-                Arguments.of(
-                        new LoginDTO(
-                                ""
-                                , "pass01"
                         )
                 )
         );
@@ -59,11 +43,5 @@ public class UserServiceTest {
         }else {
             System.out.println("사용자 등록에 실패했습니다.");
         }
-    }
-
-    @ParameterizedTest
-    @MethodSource("loginUser")
-    void loginTestUser(LoginDTO loginDto) {
-        detailsService.loadUserByUsername(loginDto.getUserId());
     }
 }

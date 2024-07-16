@@ -24,7 +24,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String id = loginToken.getName();
         String pass = (String) loginToken.getCredentials();
 
-        DetailsUser detailsUser = (DetailsUser) detailsService.loadUserByUsernameAndPassword(id, pass);
+        DetailsUser detailsUser = (DetailsUser) detailsService.loadUserByUsername(id);
 
         if(!passwordEncoder.matches(pass, detailsUser.getPassword())) {
             throw new BadCredentialsException(pass + "는 틀린 비밀번호입니다.");

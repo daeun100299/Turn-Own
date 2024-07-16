@@ -32,8 +32,6 @@ public class UserService {
     public Optional<User> loginUser(String userId){
         Optional<User> user = userRepository.findByUserId(userId);
 
-        /* 별도의 검증 로직 작성 */
-
         return user;
     }
 }
