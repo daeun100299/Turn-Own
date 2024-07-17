@@ -2,7 +2,6 @@ package com.pde.turnown.auth.handler;
 
 import com.pde.turnown.auth.model.DetailsMember;
 import com.pde.turnown.auth.model.service.DetailsService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

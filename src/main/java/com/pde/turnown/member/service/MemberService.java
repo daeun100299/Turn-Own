@@ -3,7 +3,6 @@ package com.pde.turnown.member.service;
 import com.pde.turnown.member.dto.MemberDTO;
 import com.pde.turnown.member.entity.Member;
 import com.pde.turnown.member.repository.MemberRepository;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +13,12 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final ModelMapper modelMapper;
 
-
     public MemberService(MemberRepository memberRepository, ModelMapper modelMapper) {
         this.memberRepository = memberRepository;
         this.modelMapper = modelMapper;
     }
 
-    public void signupMember(MemberDTO newMember) {
+    public MemberDTO signupMember(MemberDTO newMember) {
         Member memberEntity = Member.builder()
                 .memberID(newMember.getMemberID())
                 .memberPW(newMember.getMemberPW())
@@ -29,7 +27,9 @@ public class MemberService {
                 .memberEmail(newMember.getMemberEmail())
                 .build();
 
-        memberRepository.save(memberEntity);
+        Member saveMember =  memberRepository.save(memberEntity);
+
+        return modelMapper.map(saveMember, MemberDTO.class);
     }
 
     public Optional<MemberDTO> findMember(String memberID){
