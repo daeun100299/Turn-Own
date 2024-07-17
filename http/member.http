@@ -6,7 +6,7 @@ Accept: */*
 {
   "memberID": "id01",
   "memberPW": "pass01",
-  "memberName": "박철수",
+  "memberName": "홍길동",
   "memberPhone": "010-1111-1111",
   "memberEmail": "user01@pde.com"
 }
