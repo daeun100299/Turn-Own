@@ -2,7 +2,6 @@ package com.pde.turnown.common.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
