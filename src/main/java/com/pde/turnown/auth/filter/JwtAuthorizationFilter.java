@@ -20,6 +20,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.util.AntPathMatcher;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,14 +35,14 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        List<String> roleLessList = Arrays.asList("/signup","/signupPosition","/signupDep");
+        AntPathMatcher antPathMatcher = new AntPathMatcher();
+        List<String> roleLessList = Arrays.asList("/signup", "/login", "/login/*");
 
-        if (roleLessList.contains(request.getRequestURI()) ||
+        if (roleLessList.stream().anyMatch(pattern -> antPathMatcher.match(pattern, request.getRequestURI())) ||
                 request.getRequestURI().contains("verifyEmail") ||
-                request.getRequestURI().contains("email")  ||
+                request.getRequestURI().contains("email") ||
                 request.getRequestURI().contains("PW")) {
             chain.doFilter(request, response);
-
             return;
         }
 

@@ -1,6 +1,7 @@
 package com.pde.turnown.member.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,13 +22,16 @@ public class Member {
     private String memberPhone;
     @Column(name="MEMBER_EMAIL")
     private String memberEmail;
+    @Column(name="EMAIL_CODE")
+    private String emailCode;
 
     @Builder
-    public Member(String memberID, String memberPW, String memberName, String memberPhone, String memberEmail) {
+    public Member(String memberID, String memberPW, String memberName, String memberPhone, String memberEmail, String emailCode) {
         this.memberID = memberID;
         this.memberPW = memberPW;
         this.memberName = memberName;
         this.memberPhone = memberPhone;
         this.memberEmail = memberEmail;
+        this.emailCode = emailCode;
     }
 }

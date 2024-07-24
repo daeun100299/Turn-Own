@@ -16,6 +16,15 @@ public class MemberDTO {
     private String memberPhone;
     private String memberEmail;
 
+    public MemberDTO(String memberEmail) {
+        this.memberEmail = memberEmail;
+    }
+
+    public MemberDTO(String memberID, String memberEmail) {
+        this.memberID = memberID;
+        this.memberEmail = memberEmail;
+    }
+
     public MemberDTO(String memberID, String memberPW, String memberName, String memberPhone, String memberEmail) {
         this.memberID = memberID;
         this.memberPW = memberPW;

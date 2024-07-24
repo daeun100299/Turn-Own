@@ -20,3 +20,22 @@ Accept: */*
   "memberID": "id01",
   "memberPW": "pass01"
 }
+
+### 아이디 찾기
+GET http://localhost:8080/login/user01@pde.com
+Content-Type: application/json
+Accept: */*
+
+{
+  "memberEmail": "user01@pde.com"
+}
+
+### 비밀번호 찾기
+GET http://localhost:8080/login/findPW
+Content-Type: application/json
+Accept: */*
+
+{
+  "memberID": "id01",
+  "memberEmail": "user01@pde.com"
+}
