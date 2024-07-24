@@ -11,13 +11,13 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/turnown_db
     username: root
-    password: 100299
+    password: -
 
   mail:
     host: smtp.gmail.com
     port: 587
     username: usepjtest@gmail.com
-    password: -
+    password: dijrhcnoacjqxeyz
     properties:
       mail:
         smtp:
