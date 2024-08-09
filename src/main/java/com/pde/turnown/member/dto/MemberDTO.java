@@ -15,10 +15,7 @@ public class MemberDTO {
     private String memberName;
     private String memberPhone;
     private String memberEmail;
-
-    public MemberDTO(String memberEmail) {
-        this.memberEmail = memberEmail;
-    }
+    private int emailCode;
 
     public MemberDTO(String memberID, String memberEmail) {
         this.memberID = memberID;

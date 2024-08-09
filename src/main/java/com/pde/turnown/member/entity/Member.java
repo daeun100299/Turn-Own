@@ -1,14 +1,15 @@
 package com.pde.turnown.member.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Getter
 @NoArgsConstructor
+@ToString
 @Table(name = "tbl_member")
 public class Member {
     @Id
@@ -23,10 +24,10 @@ public class Member {
     @Column(name="MEMBER_EMAIL")
     private String memberEmail;
     @Column(name="EMAIL_CODE")
-    private String emailCode;
+    private int emailCode;
 
     @Builder
-    public Member(String memberID, String memberPW, String memberName, String memberPhone, String memberEmail, String emailCode) {
+    public Member(String memberID, String memberPW, String memberName, String memberPhone, String memberEmail, int emailCode) {
         this.memberID = memberID;
         this.memberPW = memberPW;
         this.memberName = memberName;

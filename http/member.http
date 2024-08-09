@@ -4,11 +4,11 @@ Content-Type: application/json
 Accept: */*
 
 {
-  "memberID": "id01",
-  "memberPW": "pass01",
-  "memberName": "홍길동",
-  "memberPhone": "010-1111-1111",
-  "memberEmail": "user01@pde.com"
+  "memberID": "id04",
+  "memberPW": "pass04",
+  "memberName": "박철수",
+  "memberPhone": "010-2222-3333",
+  "memberEmail": "test@gmail.com"
 }
 
 ### 로그인
@@ -22,20 +22,20 @@ Accept: */*
 }
 
 ### 아이디 찾기
-GET http://localhost:8080/login/user01@pde.com
+POST http://localhost:8080/login/findID
 Content-Type: application/json
 Accept: */*
 
 {
-  "memberEmail": "user01@pde.com"
+  "memberEmail": "test@gmail.com"
 }
 
 ### 비밀번호 찾기
-GET http://localhost:8080/login/findPW
+POST http://localhost:8080/login/findPW
 Content-Type: application/json
 Accept: */*
 
 {
-  "memberID": "id01",
-  "memberEmail": "user01@pde.com"
+  "memberID": "id04",
+  "memberEmail": "test@gmail.com"
 }

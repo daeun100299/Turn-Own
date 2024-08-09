@@ -57,7 +57,7 @@ public class MemberServiceTest {
     @ParameterizedTest
     @ValueSource(strings = "user01@pde.com")
     void findMemberID(String findMemberEmail) {
-        String findID =  memberService.findMemberID(findMemberEmail);
+        String findID =  memberService.findMemberByEmail(findMemberEmail);
         Assertions.assertNotNull(findID, "아이디가 존재합니다.");
     }
 
