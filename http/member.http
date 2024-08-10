@@ -6,9 +6,9 @@ Accept: */*
 {
   "memberID": "id04",
   "memberPW": "pass04",
-  "memberName": "박철수",
+  "memberName": "박선영",
   "memberPhone": "010-2222-3333",
-  "memberEmail": "test@gmail.com"
+  "memberEmail": "user03@gmail.com"
 }
 
 ### 로그인
@@ -27,7 +27,7 @@ Content-Type: application/json
 Accept: */*
 
 {
-  "memberEmail": "test@gmail.com"
+  "memberEmail": "user03@gmail.com"
 }
 
 ### 비밀번호 찾기
@@ -36,6 +36,16 @@ Content-Type: application/json
 Accept: */*
 
 {
-  "memberID": "id04",
-  "memberEmail": "test@gmail.com"
+  "memberID": "id03",
+  "memberEmail": "user03@gmail.com"
+}
+
+### 인증번호 확인
+POST http://localhost:8080/login/confirmCode
+Content-Type: application/json
+Accept: */*
+
+{
+  "memberEmail": "user03@gmail.com",
+  "emailCode": 253582
 }
