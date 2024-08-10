@@ -12,6 +12,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @SpringBootTest
@@ -57,13 +58,14 @@ public class MemberServiceTest {
     @ParameterizedTest
     @ValueSource(strings = "user01@pde.com")
     void findMemberID(String findMemberEmail) {
-        String findID =  memberService.findMemberByEmail(findMemberEmail);
+        String findID =  memberService.findMemberByEmail(findMemberEmail).getMemberID();
         Assertions.assertNotNull(findID, "아이디가 존재합니다.");
     }
 
     @ParameterizedTest
     @MethodSource("getMemberInfo")
     void findMemberPW(MemberDTO memberInfo) {
+
         Assertions.assertDoesNotThrow(
                 () -> {
                     memberService.findMemberPW(memberInfo);

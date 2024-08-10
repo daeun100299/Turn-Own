@@ -37,7 +37,7 @@ public class MemberController {
     /* 아이디 찾기 */
     @PostMapping("/login/findID")
     public ResponseEntity<ResponseDTO> findMemberID(@RequestBody MemberDTO findMemberEmail) {
-        String findId = memberService.findMemberByEmail(findMemberEmail.getMemberEmail());
+        String findId = memberService.findMemberByEmail(findMemberEmail.getMemberEmail()).getMemberID();
 
         if(findId.isEmpty()) {
             return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.NO_CONTENT, "아이디 미발견", null));
@@ -56,16 +56,30 @@ public class MemberController {
         Optional<MemberDTO> member = memberService.findMember(memberInfo.getMemberID());
         member.get().setEmailCode(authCode);
 
+        MemberDTO memberInfoDTO = member.get();
+
         if(member.get().getMemberID().isEmpty()) {
             return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.NO_CONTENT, "아이디가 존재하지 않습니다."));
         }else {
             if(member.get().getMemberEmail().equals(memberInfo.getMemberEmail())) {
-                memberService.findMemberPW(member);
+                memberService.findMemberPW(memberInfoDTO);
 
                 return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "인증 코드 발송"));
             }else {
                 return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.NO_CONTENT, "회원정보가 일치하지 않습니다."));
             }
+        }
+    }
+
+    /* 인증번호 확인 */
+    @PostMapping("/login/confirmCode")
+    public ResponseEntity<ResponseDTO> confirmEmailCode(@RequestBody MemberDTO codeMember) {
+        int saveCode = memberService.findMemberByEmail(codeMember.getMemberEmail()).getEmailCode();
+
+        if(saveCode == codeMember.getEmailCode()) {
+            return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "인증 성공", 1));
+        }else {
+            return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.NOT_ACCEPTABLE, "인증 실패", 0));
         }
     }
 }

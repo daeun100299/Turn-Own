@@ -42,31 +42,29 @@ public class MemberService {
         return Optional.ofNullable(modelMapper.map(member, MemberDTO.class));
     }
 
-    public String findMemberByEmail(String findMemberEmail) {
+    public MemberDTO findMemberByEmail(String findMemberEmail) {
         Member findMember = memberRepository.findByMemberEmail(findMemberEmail);
 
-        return findMember.getMemberID();
+        return modelMapper.map(findMember, MemberDTO.class);
     }
 
-    public void findMemberPW(Optional<MemberDTO> memberInfo) {
-        MemberDTO memberInfoDTO = memberInfo.get();
-
+    public void findMemberPW(MemberDTO memberInfo) {
         Member memberInfoEntity = Member.builder()
-                .memberID(memberInfoDTO.getMemberID())
-                .memberPW(memberInfoDTO.getMemberPW())
-                .memberName(memberInfoDTO.getMemberName())
-                .memberPhone(memberInfoDTO.getMemberPhone())
-                .memberEmail(memberInfoDTO.getMemberEmail())
-                .emailCode(memberInfoDTO.getEmailCode())
+                .memberID(memberInfo.getMemberID())
+                .memberPW(memberInfo.getMemberPW())
+                .memberName(memberInfo.getMemberName())
+                .memberPhone(memberInfo.getMemberPhone())
+                .memberEmail(memberInfo.getMemberEmail())
+                .emailCode(memberInfo.getEmailCode())
                 .build();
 
         memberRepository.save(memberInfoEntity);
 
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setTo(memberInfoDTO.getMemberEmail());
+        message.setTo(memberInfo.getMemberEmail());
         message.setSubject("Turn-Own 인증 코드");
-        message.setText("인증 번호는 " + memberInfoDTO.getEmailCode() + "입니다.");
+        message.setText("인증 번호는 " + memberInfo.getEmailCode() + "입니다.");
 
         mailSender.send(message);
     }
